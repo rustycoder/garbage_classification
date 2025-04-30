@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card my-5">
+    <div class="card-header">
+        Open Street Map
+        <small class="fw-lighter mb-0 me-3 align-bottom">Leaflet</small>
+    </div>
+    <div class="card-body p-0">
+        <div id="map" style="height: 600px; width: 100%;"></div>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <small id="map_footer" class="text-body-secondary">Latitude 27.7172, Longitude 85.3240</small>
+    </div>
+</div>
+
+<div class="card my-5">
+    <div class="card-header">
+        Open Weather Data
+        <small class="fw-lighter mb-0 me-3 align-bottom">Dashboard</small>
+    </div>
+    <div class="card-body">
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png"
+                                    width="30px" alt="{{weather_data.weather.0.description}}">
+                                <h6 class="mb-0">Weather</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.weather.0.main}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">
+                                {{weather_data.weather.0.description}}</small>
+                            <div class="bd-callout bd-callout-info">
+                                <strong>Prediction</strong> {{predicted_weather_main}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/temperature.svg' %}" width="24px" alt="temperature">
+                                <h6 class="mb-0">Temperature</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.main.temp}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Feels like
+                                {{weather_data.main.feels_like}}</small>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Minimum
+                                {{weather_data.main.temp_min}}</small>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Maximum
+                                {{weather_data.main.temp_max}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/pressure.svg' %}" width="24px" alt="pressure">
+                                <h6 class="mb-0">Pressure</h6>
+                            </div>
+
+                            <h1 class="display-3">{{weather_data.main.pressure}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Ground Level
+                                {{weather_data.main.grnd_level}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/humidity.svg' %}" width="24px" alt="humiidty">
+                                <h6 class="mb-0">Humidity</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.main.humidity}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Sea Level
+                                {{weather_data.main.sea_level}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/wind.svg' %}" width="24px" alt="wind">
+                                <h6 class="mb-0">Wind</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.wind.speed}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">Degree {{weather_data.wind.deg}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/visibility.svg' %}" width="24px" alt="visibility">
+                                <h6 class="mb-0">Visibility</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.visibility}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="{% static 'icons/air.svg' %}" width="30px" alt="air pollution">
+                                <h6 class="mb-0">Air Quality Index</h6>
+                            </div>
+                            <h1 class="display-3">{{air_pollution_data.list.0.main.aqi}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">
+                                {{air_pollution_data.list.0.main.qualitative_name}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Carbon Monoxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.co}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Monoxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.no}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Nitrogen Dioxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.no2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ozone</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.o3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Ammonia</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.nh3}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Sulphur Dioxide</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.so2}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Particulates (PM2.5)</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.pm2_5}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-0">Particulates (PM10)</h6>
+                            <h1 class="display-4">{{air_pollution_data.list.0.components.pm10}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom"> μg/m3</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
+    </div>
+</div>
+{% endblock %}

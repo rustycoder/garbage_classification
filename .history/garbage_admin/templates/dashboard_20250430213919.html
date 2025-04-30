@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="card my-5">
+    <div class="card-header">
+        Open Street Map
+        <small class="fw-lighter mb-0 me-3 align-bottom">Leaflet</small>
+    </div>
+    <div class="card-body p-0">
+        <div id="map" style="height: 600px; width: 100%;"></div>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <small id="map_footer" class="text-body-secondary">Latitude 27.7172, Longitude 85.3240</small>
+    </div>
+</div>
+
+<div class="card my-5">
+    <div class="card-header">
+        Garbage Classification
+        <small class="fw-lighter mb-0 me-3 align-bottom">Dashboard</small>
+    </div>
+    <div class="card-body">
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row align-items-center gap-1">
+                                <img src="https://openweathermap.org/img/wn/{{weather_data.weather.0.icon}}@2x.png"
+                                    width="30px" alt="{{weather_data.weather.0.description}}">
+                                <h6 class="mb-0">Weather</h6>
+                            </div>
+                            <h1 class="display-3">{{weather_data.weather.0.main}}</h1>
+                            <small class="fw-lighter mb-0 me-3 align-bottom">
+                                {{weather_data.weather.0.description}}</small>
+                            <div class="bd-callout bd-callout-info">
+                                <strong>Prediction</strong> {{predicted_weather_main}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-body-secondary">
+        <small class="text-body-secondary">Fetched on {{weather_data.dt}}</small>
+    </div>
+</div>
+{% endblock %}

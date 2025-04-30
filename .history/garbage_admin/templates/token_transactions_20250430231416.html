@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card my-5">
+    <div class="card-header">
+        Token Transactions
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Transaction Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in token_transactions.list %}
+            <tr>
+                <td>{{l.transaction_date}}</td>
+                <td>{{l.transaction_type}}</td>
+                <td>{{l.amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

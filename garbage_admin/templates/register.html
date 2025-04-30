@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-md-4 offset-md-8">
+    <div class="card my-5 glass">
+        <div class="card-body">
+            <div class="col-md-12 px-3">
+                <img src="{% static 'images/logo_full_white.png' %}" class="rounded mx-auto d-block" width="300"
+                    alt="Weather Prediction Logo">
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Your Form Has Errors
+                        {% for field in form %}
+                        {% if field.errors %}
+                        {{ field.errors }}
+                        {% endif %}
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-footer text-body-secondary text-center">
+            <small class="text-white">Version 1.0.0</small>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

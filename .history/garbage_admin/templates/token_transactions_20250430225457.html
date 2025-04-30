@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card my-5">
+    <div class="card-header">
+        Token Transactions
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Transaction Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{token_transactions.transaction_date}}</td>
+                <td>{{token_transactions.transaction_type}}</td>
+                <td>{{token_transactions.amount}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
